@@ -25,11 +25,7 @@ INCLUDEPATH = include $$(SRC)/include
 DEPENDPATH = include $$(SRC)/include
 
 HEADERS += \
-    include/cpp/debug.h \
     include/cpp/Exception.h \
-    include/cpp/NonCopyable.h \
-    include/cpp/NonMovable.h \
-    include/cpp/types.h \
-    include/cpp/unique.h
+    include/cpp/cpp.h
 
 SOURCES += src/Exception.cc
