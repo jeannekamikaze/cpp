@@ -8,27 +8,31 @@
 #endif
 
 /// A type that cannot be copied.
-struct NonCopyable {
-  NonCopyable() {}
+struct no_copy {
+  no_copy() {}
 
-  virtual ~NonCopyable() {}
+  virtual ~no_copy() {}
 
-  NonCopyable(const NonCopyable&) = delete;
-  NonCopyable& operator=(const NonCopyable&) = delete;
+  no_copy(const no_copy&) = delete;
+  no_copy& operator=(const no_copy&) = delete;
 };
+
+using NonCopyable = no_copy;  // For cases where Pascal case is preferred.
 
 /// A type that cannot be moved.
-struct NonMovable {
-  NonMovable() {}
+struct no_move {
+  no_move() {}
 
-  virtual ~NonMovable() {}
+  virtual ~no_move() {}
 
-  NonMovable(NonMovable&&) = delete;
-  NonMovable& operator=(NonMovable&&) = delete;
+  no_move(no_move&&) = delete;
+  no_move& operator=(no_move&&) = delete;
 };
 
+using NonMovable = no_move;  // For cases where Pascal case is preferred.
+
 /// A type that can neither be copied nor moved.
-struct unique : NonCopyable, NonMovable {
+struct unique : no_copy, no_move {
   unique() {}
 
   virtual ~unique() {}
