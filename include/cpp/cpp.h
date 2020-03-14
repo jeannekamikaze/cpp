@@ -1,17 +1,23 @@
 #pragma once
 
-#ifdef _DEBUG
-#include <cassert>
-#define DEBUG(x) x
-#else
+#ifdef NDEBUG
 #define DEBUG(x)
+#define DCHECK(expr)
+#else  // Debug
+#define DEBUG(x) x
+#define DCHECK(expr)          \
+  {                           \
+    if (!(expr)) {            \
+      throw EXCEPTION(#expr); \
+    }                         \
+  }
+#define DCHECK_EQ(a, b) DCHECK((a) == (b))
 #endif
 
 /// A type that cannot be copied.
 struct no_copy {
-  no_copy() {}
-
-  virtual ~no_copy() {}
+  no_copy() = default;
+  virtual ~no_copy() = default;
 
   no_copy(const no_copy&) = delete;
   no_copy& operator=(const no_copy&) = delete;
@@ -21,9 +27,8 @@ using NonCopyable = no_copy;  // For cases where Pascal case is preferred.
 
 /// A type that cannot be moved.
 struct no_move {
-  no_move() {}
-
-  virtual ~no_move() {}
+  no_move() = default;
+  virtual ~no_move() = default;
 
   no_move(no_move&&) = delete;
   no_move& operator=(no_move&&) = delete;
@@ -33,9 +38,8 @@ using NonMovable = no_move;  // For cases where Pascal case is preferred.
 
 /// A type that can neither be copied nor moved.
 struct unique : no_copy, no_move {
-  unique() {}
-
-  virtual ~unique() {}
+  unique() = default;
+  virtual ~unique() = default;
 };
 
 // Types
