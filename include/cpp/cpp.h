@@ -11,8 +11,10 @@
       throw EXCEPTION(#expr); \
     }                         \
   }
-#define DCHECK_EQ(a, b) DCHECK((a) == (b))
 #endif
+#define DCHECK_EQ(a, b) DCHECK((a) == (b))
+#define DCHECK_GE(a, b) DCHECK((a) >= (b))
+#define DCHECK_LT(a, b) DCHECK((a) < (b))
 
 /// A type that cannot be copied.
 struct no_copy {
